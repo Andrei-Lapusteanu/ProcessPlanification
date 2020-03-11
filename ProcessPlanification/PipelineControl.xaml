@@ -1,0 +1,147 @@
+﻿<UserControl x:Class="ProcessPlanification.PipelineControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProcessPlanification"
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="830">
+    <Grid Name="mainControl" Height="250" Width="830" Uid="Deselected">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Name="gridTitle" Uid="PCTitle">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFFFA852" Offset="1"/>
+                    <GradientStop Color="#FEFFF05D"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <!--Background="#FF19E4BF"-->
+            <TextBlock x:Name="textBlockTitle" Uid="PCTitle" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="36" Width="700"/>
+
+            <StackPanel HorizontalAlignment="Right" Height="50" VerticalAlignment="Top" Orientation="Horizontal">
+                <Button x:Name="buttonMinimize" Tag="Expanded" Style="{StaticResource BorderlessButtons}"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="30" Click="buttonMinimize_Click" Height="14" RenderTransformOrigin="0.5,0.5" Margin="0, 0, 15, 0" Content="">
+                    <Button.Background>
+                        <ImageBrush ImageSource="img/UpArrowGray.png"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="buttonCloseUC" Style="{StaticResource BorderlessButtons}" Content="" HorizontalAlignment="Left" VerticalAlignment="Center" Width="30" Height="30" Click="buttonCloseUC_Click" BorderBrush="{x:Null}" Margin="0, 0, 15, 0">
+                    <Button.Background>
+                        <ImageBrush ImageSource="img/ics3_gray.png"/>
+                    </Button.Background>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" x:Name="mainPanel">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF2E2E2E" Offset="0"/>
+                    <GradientStop Color="#FF404040" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+
+            <!--
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="3.8*"/>
+            </Grid.ColumnDefinitions>-->
+
+            <!-- <ScrollViewer Name="ScrollArea" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="542" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden" Margin="74,0,0,0">-->
+            <local:ZoomBorder Height="200" x:Name="ZoomAndPanArea" ClipToBounds="True" Background="Transparent" Panel.ZIndex="0" Uid="UCelement" Margin="0,0,20,0">
+                <!--<Grid Grid.Column="0" Name="GraphArea" MouseMove="GraphArea_MouseMove" ClipToBounds="False"/>-->
+                <Canvas Name="canvasGraphArea" MouseMove="GraphArea_MouseMove" ClipToBounds="False" Panel.ZIndex="0" Uid="UCelement" HorizontalAlignment="Left" Width="810">
+                    <TextBlock x:Name="textBlockTitleClickMe" Uid="helper" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Text="Click the title bar to select this control (and click again to deselect it)" Foreground="White" Opacity="0.25" FontFamily="Segoe UI Light" FontSize="16" Margin="5,0,0,0"/>
+
+                </Canvas>
+            </local:ZoomBorder>
+            <Button x:Name="buttonRecenterGraph" Grid.Column="0" Opacity="0.3" Content="Recenter" Style="{StaticResource BorderedButtons}" Margin="0,0,255,10" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" Foreground="White" MouseEnter="buttonRecenterGraph_MouseEnter" MouseLeave="buttonRecenterGraph_MouseLeave" Click="buttonRecenterGraph_Click">
+
+                <Button.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.2"/>
+                </Button.Background>
+                <Button.BorderBrush>
+                    <SolidColorBrush Color="White" Opacity="0.5"/>
+                </Button.BorderBrush>
+            </Button>
+
+            <Grid Name="BlurGrid" Width="250" HorizontalAlignment="Right" Background="Transparent" Panel.ZIndex="1">
+                <Grid.Effect>
+                    <BlurEffect Radius="20.4" RenderingBias="Quality" KernelType="Box" />
+                </Grid.Effect>
+
+            </Grid>
+
+            <Grid Name="PropertiesArea" Opacity="1" Width="230" HorizontalAlignment="Right" Panel.ZIndex="2" Margin="0,0,0,0">
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0, 0.5" StartPoint="1, 0.5">
+                        <GradientStop Color="#002C2C2C" Offset="1"/>
+                        <GradientStop Color="#E92C2C2C" Offset="0.9"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <Grid Name="PropertiesGrid" Margin="10, 10, 20, 10" MaxHeight="275">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Column="0" Grid.Row="1">
+                        <TextBlock x:Name="textBlock" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Text="Total proc. time" FontSize="20" Foreground="White" FontFamily="Segoe UI Light"/>
+                    </Grid>
+                    <Grid Grid.Column="0" Grid.Row="0">
+                        <TextBlock x:Name="textBlock2" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Text="Process ID" FontSize="20" Foreground="White" FontFamily="Segoe UI Light"/>
+                    </Grid>
+                    <Grid Grid.Column="0" Grid.Row="2">
+                        <TextBlock x:Name="textBlock3" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Text="Priority" FontSize="20" Foreground="White" FontFamily="Segoe UI Light"/>
+                    </Grid>
+                    <Grid Grid.Column="0" Grid.Row="3">
+                        <TextBlock x:Name="textBlock4" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Text="Proc. time left" FontSize="20" Foreground="White" FontFamily="Segoe UI Light"/>
+                    </Grid>
+                    <Grid Grid.Column="0" Grid.Row="4">
+                        <TextBlock x:Name="textBlock5" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Text="Executed time" FontSize="20" Foreground="White" FontFamily="Segoe UI Light"/>
+                    </Grid>
+                    <Grid Grid.Column="0" Grid.Row="5">
+                        <TextBlock x:Name="textBlock6" HorizontalAlignment="Right" Width="Auto" VerticalAlignment="Center" TextWrapping="Wrap" Text="Done executing" FontSize="20" Foreground="White" FontFamily="Segoe UI Light"/>
+                    </Grid>
+
+
+                    <Grid Grid.Column="1" Grid.Row="1">
+                        <TextBlock x:Name="textBlockTotalProcessingTime" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Text="" FontSize="26" Foreground="#FF19E4BF" FontFamily="Source Sans Pro" TextDecorations="{x:Null}"/>
+                    </Grid>
+                    <Grid Grid.Column="2" Grid.Row="0">
+                        <TextBlock x:Name="textBlockProcessID" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Text="" FontSize="26" Foreground="#FF19E4BF" FontFamily="Source Sans Pro" TextDecorations="{x:Null}"/>
+                    </Grid>
+                    <Grid Grid.Column="2" Grid.Row="2">
+                        <TextBlock x:Name="textBlockPriority" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Text="" FontSize="26" Foreground="#FF19E4BF" FontFamily="Source Sans Pro" TextDecorations="{x:Null}"/>
+                    </Grid>
+                    <Grid Grid.Column="4" Grid.Row="3">
+                        <TextBlock x:Name="textBlockProcessingTimeLeft" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Text="" FontSize="26" Foreground="#FF19E4BF" FontFamily="Source Sans Pro" TextDecorations="{x:Null}"/>
+                    </Grid>
+                    <Grid Grid.Column="5" Grid.Row="4">
+                        <TextBlock x:Name="textBlockExecutedTime" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Text="" FontSize="26" Foreground="#FF19E4BF" FontFamily="Source Sans Pro" TextDecorations="{x:Null}"/>
+                    </Grid>
+                    <Grid Grid.Column="6" Grid.Row="5">
+                        <TextBlock x:Name="textBlockFinishedExecuting" HorizontalAlignment="Right" Width="Auto" VerticalAlignment="Center" TextWrapping="Wrap" Text="" FontSize="24" Foreground="#FFDC3966" FontFamily="Source Sans Pro"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <!--<DockPanel Name="dockPanelCPUNumber" HorizontalAlignment="Left" Height="200" LastChildFill="False" VerticalAlignment="Top" Width="70" Background="#FF2C2C2C">
+            </DockPanel>-->
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,129 @@
+﻿<Window x:Class="ProcessPlanification.EditLoadData"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProcessPlanification"
+        mc:Ignorable="d"
+        Title="Load and Edit Data" Height="600" Width="400" Closing="Window_Closing">
+    <Grid Name="gridEditLoadMainPanel" Background="#FF232323">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" Name="gridEditLoadTable">
+            <DataGrid x:Name="dataGrid" Background="#FF303030" IsReadOnly="True" IsEnabled="False" RowHeaderWidth="0" ItemsSource="{Binding dataContext}" ColumnWidth="*" RowBackground="#FF303030" Foreground="White" BorderBrush="{x:Null}" Margin="0,0,0,110" Grid.ColumnSpan="2" CellEditEnding="dataGrid_CellEditEnding">
+                <!--" <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Width="*" HeaderStyle="{StaticResource CenterAlignmentColumnHeaderStyle}" CellStyle="{StaticResource CenterAlignmentCellStyle}" Binding="{Binding ID}" />
+                    <DataGridTextColumn Header="Arrival Time" Width="*"  HeaderStyle="{StaticResource CenterAlignmentColumnHeaderStyle}" Binding="{Binding ArrivalTime}"/>
+                    <DataGridTextColumn Header="Processing time" Width="*"  HeaderStyle="{StaticResource CenterAlignmentColumnHeaderStyle}" Binding="{Binding ProcessingTime}"/>
+                    <DataGridTextColumn Header="Priority" Width="*" HeaderStyle="{StaticResource CenterAlignmentColumnHeaderStyle}" Binding="{Binding Priority}"/>
+                </DataGrid.Columns> -->
+            </DataGrid>
+            <StackPanel Name="stackPanelDataGridControls" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Bottom" FlowDirection="RightToLeft" Grid.ColumnSpan="2" Margin="0,0,5,30">
+                <Button x:Name="buttonEnableEditing" Content="Enable Editing" Margin="0, 0, 5, 0" Width="150" Height="40" Click="buttonEnableEditing_Click" Style="{StaticResource BorderlessButtons}" Background="#FF464646" Foreground="White" FontSize="18" FontFamily="Segoe UI Light"/>
+                <Button x:Name="buttonClearDataGrid" Opacity="0.6" Content="Clear Table" Margin="0, 0, 5, 0" Width="100" Height="40" Style="{StaticResource BorderlessButtons}" Background="#FF464646" Foreground="White" FontSize="18" FontFamily="Segoe UI Light" Click="buttonClearDataGrid_Click"/>
+                <Button x:Name="buttonAddRow" Content="" Margin="0,8,5,7" IsEnabled="False" HorizontalAlignment="Left" Width="35" Height="35" Click="buttonAddRow_Click" Style="{StaticResource AddRowCustom}">
+
+                </Button>
+                <Button x:Name="buttonDeleteRow" Content="" Margin="0, 0, 5, 0" IsEnabled="False" Height="35" HorizontalAlignment="Right" Width="35" Click="buttonDeleteRow_Click" Style="{StaticResource DeleteRowCustom}">
+
+                </Button>
+            </StackPanel>
+
+            <StackPanel Name="stackPanelNotification" IsEnabled="False" Opacity="0.6" HorizontalAlignment="Right" Height="30" Margin="0,0,0,80" VerticalAlignment="Bottom" Width="Auto" Orientation="Horizontal">
+                <CheckBox x:Name="checkBoxRandomizeValues" Content="Randomize generated values in range" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Foreground="#FFEEEEEE" Background="#FF646464" Click="checkBoxRandomizeValues_Click" IsChecked="True"/>
+                <TextBox x:Name="textBoxRandomRangeStart" Margin="5, 2, 0, 0" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="1" VerticalAlignment="Center" Width="30" Background="{x:Null}" Foreground="#FFEEEEEE" TextAlignment="Right" TextChanged="textBoxRandomRangeStart_TextChanged"/>
+                <TextBlock x:Name="textBlockDash" TextWrapping="NoWrap" VerticalAlignment="Center" Margin="5,0,5,0" Text="-" Width="Auto" Foreground="White" Height="Auto"/>
+                <TextBox x:Name="textBoxRandomRangeEnd" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Margin="0, 2, 5, 0" Text="10" VerticalAlignment="Center" Width="30" Background="{x:Null}" Foreground="#FFEEEEEE" TextAlignment="Right" TextChanged="textBoxRandomRangeEnd_TextChanged"/>
+            </StackPanel>
+
+            <StackPanel Height="30" VerticalAlignment="Bottom" Margin="0, 0, 0, 0"  Orientation="Horizontal" FlowDirection="RightToLeft" Background="#FF303030">
+                <TextBlock x:Name="textBlockNotification" HorizontalAlignment="Right" TextWrapping="NoWrap" VerticalAlignment="Center" Margin="10,0,10,0" Text="This is a placeholder text, ignore me" Foreground="White" Height="Auto"/>
+                <Image x:Name="imageNotification" HorizontalAlignment="Right" VerticalAlignment="Center" Height="20" Width="20" Source="img/saveDownloaded.png"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="0" Name="gridSaveLoadControls">
+            <StackPanel Name ="stackPanelSaveLoadControls" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5" Orientation="Horizontal">
+                <Button x:Name="buttonSaveData" Margin="5, 0, 0, 0" Width="100" Height="45" FontSize="20" FontFamily="Segoe UI Light" BorderBrush="{x:Null}" Foreground="White" Style="{StaticResource BorderlessButtons}" Click="buttonSaveData_Click">
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF2F5583" Offset="1"/>
+                            <GradientStop Color="#FF25374D" Offset="0.008"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="textBlockSave" TextWrapping="Wrap" Text="Save" Width="46" VerticalAlignment="Center"/>
+                        <Image x:Name="imageLoad" Height="30" Width="30" Panel.ZIndex="10" Source="img/saveDownloaded.png" Opacity="0.8"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="buttonLoadData" Margin="5, 0, 5, 0" Width="100" Height="45" FontSize="20" FontFamily="Segoe UI Light" BorderBrush="{x:Null}" Foreground="White" Click="buttonLoadData_Click" Style="{StaticResource BorderlessButtons}">
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF25374D"/>
+                            <GradientStop Color="#FF2F5583" Offset="0.995"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="textBlockLoad" TextWrapping="Wrap" Text="Load" Width="52" VerticalAlignment="Center"/>
+                        <Image x:Name="imageSave" Height="30" Width="30" Panel.ZIndex="10" Source="img/loadDownloaded.png" Opacity="0.8"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="buttonSubmitEdit" Content="Submit" IsEnabled="False" Opacity="0.6" Click="buttonSubmitEdit_Click" Width="100" Height="45" Style="{StaticResource BorderlessButtons}" Foreground="Black" FontFamily="Segoe UI Light" FontSize="20">
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF266E2B" Offset="0"/>
+                            <GradientStop Color="#FF319339" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.RowSpan="2" Name="gridClosingWindowPopup" Width="300" Height="201" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden">
+            <Grid.Effect>
+                <DropShadowEffect Color="Black" ShadowDepth="0" Direction="0" BlurRadius="30" Opacity="0.6" RenderingBias="Quality">
+
+                </DropShadowEffect>
+            </Grid.Effect>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Name="gridClosingWindowPopupTitle" Background="#FFC72A3F">
+                <TextBlock x:Name="textBlock_something" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Warning" Margin="10,0,0,0" FontSize="30" FontFamily="Segoe UI Light"/>
+            </Grid>
+
+            <Grid Grid.Row="1" Name="gridClosingWindowPopupBody" Background="#FF232323">
+                <TextBlock x:Name="textBlockClosingWindowPopupMessage" HorizontalAlignment="Left" Margin="19,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" Width="271" Foreground="White" FontFamily="Segoe UI Semilight" Height="72"><Run Text="      "/><Run Text="Data has not been saved"/><Run Text=" and will be lost if application exits. "/><Run Text="Please s"/><Run Text="elect desired action"/></TextBlock>
+                <Image x:Name="imageClosingWindowPopupWarning" HorizontalAlignment="Left" Height="20" Margin="19,21,0,0" VerticalAlignment="Top" Width="20" Source="img/warning.png"/>
+                <StackPanel HorizontalAlignment="Left" Height="60" VerticalAlignment="Bottom" Width="Auto" Orientation="Horizontal">
+                    <Button x:Name="buttonClosingWindowPopupSave" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="80" Height="30" Background="#FF464646" Style="{StaticResource BorderlessButtons}" FontSize="20" FontFamily="Segoe UI Light" Margin="10,0,10,10" Foreground="White"  Click="buttonSaveData_Click">
+                        <StackPanel Orientation="Horizontal" Name="stackPanelSavePopup">
+                            <TextBlock x:Name="textBlockSavePopup" TextWrapping="Wrap" Text=" Save" Width="45" VerticalAlignment="Center" FontSize="17"/>
+                            <Image x:Name="imageSavePopup" Height="20" Width="20" Panel.ZIndex="10" Margin="3,0,0,0" Source="img/saveDownloaded.png" Opacity="0.8"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="buttonClosingWindowPopupClose" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="80" Height="30" Background="#FF464646" Style="{StaticResource BorderlessButtons}" FontSize="20" FontFamily="Segoe UI Light" Margin="10,0,20,10" Foreground="White" Click="buttonClosingWindowPopupClose_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="textBlockClosePopup" TextWrapping="Wrap" Width="45" VerticalAlignment="Center" FontSize="17"><Run Text=" "/><Run Text="Close"/></TextBlock>
+                            <Image x:Name="imageClosePopup" Height="17" Width="20" Panel.ZIndex="10" Margin="3,0,0,0" Source="img/alert.png" Opacity="0.8"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="buttonClosingWindowPopupCancel" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="80" Height="30" Background="#FF464646" Style="{StaticResource BorderlessButtons}" FontSize="20" FontFamily="Segoe UI Light" Margin="0,0,10,10" Foreground="White" Click="buttonClosingWindowPopupCancel_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="textBlockCancelPopup" TextWrapping="Wrap" Text="Cancel" Width="50" VerticalAlignment="Center" FontSize="17"/>
+                            <Image x:Name="imageCancelPopup" Height="17" Width="17" Panel.ZIndex="10" Margin="3,0,0,0" Source="img/cancelDownloaded.png" Opacity="0.8"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+
+</Window>

@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="ProcessPlanification.TimeScaleElement"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProcessPlanification"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="30">
+    <Grid>
+        <Rectangle Name="rectangleTick" HorizontalAlignment="Left" Height="10" VerticalAlignment="Top" Width="2" Margin="15,0,0,0">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFCDCDCD" Offset="1"/>
+                    <GradientStop Color="White"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <TextBlock  x:Name="textBlockTickValue" TextWrapping="Wrap" Text="xx" Background="{x:Null}" Width="Auto"  Foreground="#FFECECEC" FontSize="17" Margin="9,7,4,0" FontFamily="Segoe UI Light"/>
+    </Grid>
+</UserControl>

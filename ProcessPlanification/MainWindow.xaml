@@ -1,0 +1,319 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProcessPlanification"
+        xmlns:UserControls="clr-namespace:ProcessPlanification.UserControls" x:Class="ProcessPlanification.MainWindow"
+        xmlns:pipelineUserControl="clr-namespace:ProcessPlanification.UserControls"
+
+        mc:Ignorable="d"
+        Title="Process Planification" Height="720" Width="1280" SizeChanged="Window_SizeChanged">
+
+    <Window.Resources>
+        <Style TargetType="Image">
+            <Setter Property="Height" Value="64" />
+            <Setter Property="Width" Value="64" />
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="#FF232323" Name="gridMainPanel">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="410"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Name="gridLeftPanel">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <TextBlock x:Name="textBlockScrollable" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Foreground="#FF2E2E2E" FontSize="130" Width="635" Text="Scrollable Area" TextAlignment="Center"></TextBlock>
+                <local:ZoomBorderOnlyPan x:Name="PanArea" ClipToBounds="True" Background="Transparent" Panel.ZIndex="0" Margin="0,10,0,0">
+                    <Canvas Name="mainCanvas"  ClipToBounds="False">
+                        <StackPanel x:Name="sPanel" Uid="mainStackPanelUID" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" FlowDirection="LeftToRight" Width="850" Margin="5, 5, 0, 5" MouseUp="sPanel_MouseUp">
+                        </StackPanel>
+                    </Canvas>
+                    <!--<StackPanel x:Name="sPanel" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Height="Auto" FlowDirection="LeftToRight" Width="850" Margin="10, 10, 0, 5">
+                    </StackPanel>-->
+                </local:ZoomBorderOnlyPan>
+                <Button x:Name="buttonRecenterMainCanvas" Grid.Column="0" Opacity="0.2" Style="{StaticResource BorderedButtons}" Content="Top" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" Foreground="White" Click="buttonRecenterMainCanvas_Click" MouseEnter="buttonRecenterMainCanvas_MouseEnter" MouseLeave="buttonRecenterMainCanvas_MouseLeave">
+                    <Button.Background>
+                        <SolidColorBrush Color="Black" Opacity="0.2"/>
+                    </Button.Background>
+                    <Button.BorderBrush>
+                        <SolidColorBrush Color="White" Opacity="0.5"/>
+                    </Button.BorderBrush>
+                </Button>
+            </Grid>
+
+            <Grid Grid.Row="1" Name="gridBottomControls" Margin="10, 5, 0, 10" Background="#FF2C2C2C" >
+                <StackPanel Name="stackPanelMainControls" IsEnabled="False" Opacity="0.6" Height="55" VerticalAlignment="Top" FlowDirection="RightToLeft"  Orientation="Horizontal">
+                    <Button x:Name="buttonCreatePipelineControl" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150"  Height="45" Click="buttonCreatePipelineControl_Click" Margin="5,5,0,5" Style="{StaticResource BorderlessButtons}">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF205B24" Offset="0"/>
+                                <GradientStop Color="#FF319339" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                        <StackPanel Height="45" Orientation="Horizontal" FlowDirection="LeftToRight">
+                            <TextBlock x:Name="textBlockCreate" TextWrapping="Wrap" Text="Generate" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Segoe UI Light" FontSize="22"/>
+                            <Image x:Name="imageCreate" Width="30" Height="30" Margin="10, 0, 0, 0" Source="img/createNewDownloaded.png"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="buttonRunAll" HorizontalAlignment="Right" Width="200" Click="buttonRunAll_Click" Height="45" Margin="5, 5, 5, 5" FontSize="30" FontFamily="Segoe WP Light" BorderBrush="{x:Null}" Foreground="#FF131313" Style="{StaticResource BorderlessButtons}">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF164019" Offset="0"/>
+                                <GradientStop Color="#FF26702C" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                        <StackPanel Height="42" Orientation="Horizontal" FlowDirection="LeftToRight" Width="188">
+                            <TextBlock x:Name="textBlockRunAll" TextWrapping="Wrap" Text="Generate &amp; Run" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Segoe UI Light" FontSize="22"/>
+                            <Image x:Name="imageRunAll" Width="30" Height="30" Margin="10, 0, 0, 0" Source="img/createNewDownloaded_3.png"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="buttonIncrement" HorizontalAlignment="Right" Width="150" Height="45" Margin="0,5,5,5" FontSize="30" FontFamily="Segoe WP Light" Foreground="White" Background="#FF3E3E3E" Click="buttonIncrement_Click" Style="{StaticResource BorderlessButtons}">
+                        <StackPanel Height="45" Orientation="Horizontal" FlowDirection="LeftToRight">
+                            <TextBlock x:Name="textBlockIncrement" TextWrapping="Wrap" Text="Increment" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Segoe UI Light" FontSize="22"/>
+                            <Image x:Name="imageIncrement" Width="35" Height="35" Margin="10, 0, 0, 0" Source="img/incrementTimeDownloaded_2.png"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="buttonDecrement" HorizontalAlignment="Right" Width="150" Height="45" Margin="0,5,5,5" FontSize="30" FontFamily="Segoe WP Light" Foreground="White" Background="#FF3E3E3E" Click="buttonDecrement_Click" Style="{StaticResource BorderlessButtons}">
+                        <StackPanel Height="45" Orientation="Horizontal" FlowDirection="LeftToRight">
+                            <TextBlock x:Name="textBlockDecrement" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Segoe UI Light" FontSize="22"><Run Text="De"/><Run Text="crement"/></TextBlock>
+                            <Image x:Name="imageDecrement" Width="35" Height="35" Margin="5, 0, 0, 0" Source="img/decrementTimeDownloaded_2.png"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="buttonClear" HorizontalAlignment="Right" Width="100" Height="45" Margin="0,5,5,5" FontSize="30" FontFamily="Segoe WP Light" Foreground="White" Background="#FF3E3E3E" Click="buttonClear_Click" Style="{StaticResource BorderlessButtons}">
+                        <StackPanel Height="45" Orientation="Horizontal" FlowDirection="LeftToRight">
+                            <TextBlock x:Name="textBlockClear" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Segoe UI Light" FontSize="22" Text="Clear"/>
+                            <Image x:Name="imageClear" Width="35" Height="35" Margin="5, 0, 0, 0" Source="img/clearDownloaded.png"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+        </Grid>
+
+        <Grid Grid.Column="1" Name="gridRightPanel" Margin="5,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="140"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Name="gridDataManagement" Margin="5, 45, 10, 5"  Background="#FF2C2C2C">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Name="gridDataManagementTop" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="1.5*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="1" Background="#FF232323"/>
+                    <TextBlock x:Name="textBlockScrollable2" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Foreground="#FF363636" FontSize="30" Width="154" Text="Scrollable Area" TextAlignment="Center"/>
+                    <TextBlock x:Name="textBlockScrollable3" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Foreground="#FF363636" FontSize="30" Width="154" Text="Scrollable Area" TextAlignment="Center" Grid.Column="2"/>
+                    <local:ZoomBorderOnlyPan x:Name="PanAreaStaticData" Grid.Row="0" Grid.Column="0" ClipToBounds="True" Background="Transparent" Panel.ZIndex="0">
+                        <Canvas Name="canvasStaticData" ClipToBounds="False">
+                            <Grid Name="gridStaticDataDisplay" >
+                                <Grid.Background>
+                                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                        <GradientStop Color="#FF232323" Offset="0"/>
+                                        <GradientStop Color="#FF2C2C2C" Offset="0.3"/>
+                                        <GradientStop Color="#FF2C2C2C" Offset="0.7"/>
+                                        <GradientStop Color="#FF232323" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="39"/>
+                                    <ColumnDefinition Width="39"/>
+                                    <ColumnDefinition Width="39"/>
+                                    <ColumnDefinition Width="39"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="45"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0" Grid.Column="0">
+                                    <TextBlock x:Name="textBlockStaticID" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="" VerticalAlignment="Center" FontSize="18" Foreground="White"/>
+                                </Grid>
+                                <Grid Grid.Row="0" Grid.Column="1">
+                                    <TextBlock x:Name="textBlockStaticArrivalTime" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" FontSize="18" Foreground="White" TextAlignment="Center"/>
+                                </Grid>
+                                <Grid Grid.Row="0" Grid.Column="2">
+                                    <TextBlock x:Name="textBlockStaticProcessingTime" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="" VerticalAlignment="Center" FontSize="18" Foreground="White" TextAlignment="Center"/>
+                                </Grid>
+                                <Grid Grid.Row="0" Grid.Column="3">
+                                    <TextBlock x:Name="textBlockStaticPriority" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="" VerticalAlignment="Center" FontSize="18" Foreground="White"/>
+                                </Grid>
+                            </Grid>
+                        </Canvas>
+                    </local:ZoomBorderOnlyPan>
+                    <DockPanel Height="50" LastChildFill="False" VerticalAlignment="Top" Opacity="1">
+                        <DockPanel.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#002C2C2C" Offset="1"/>
+                                <GradientStop Color="#FF2C2C2C"/>
+                                <GradientStop Color="#FF2C2C2C" Offset="0.836"/>
+                            </LinearGradientBrush>
+                        </DockPanel.Background>
+                        <StackPanel Height="50" VerticalAlignment="Top" Orientation="Horizontal">
+                            <Image x:Name="imageStaticTableID" Height="30" Width="30" Margin="5, 0, 0, 0" VerticalAlignment="Center"  Source="img/id_icon_gradient.png"/>
+                            <Image x:Name="imageStaticTableArrivalTime" Height="30" Width="30" Margin="10, 0, 0, 0" VerticalAlignment="Center" Source="img/time_1_gradient.png"/>
+                            <Image x:Name="imageStaticTableProcessingTime" Height="30" Width="30" Margin="10, 0, 0, 0" VerticalAlignment="Center" Source="img/processingTimeGradient.png"/>
+                            <Image x:Name="imageStaticTablePriority" Height="30" Width="30" Margin="10, 0, 0, 0" VerticalAlignment="Center" Source="img/Priority_2_gradient.png"/>
+                        </StackPanel>
+
+                    </DockPanel>
+                    <local:ZoomBorderOnlyPan x:Name="PanAreaDynamicData" Grid.Row="0" Grid.Column="2" ClipToBounds="True" Background="Transparent" Panel.ZIndex="0">
+                        <Canvas Name="canvasDynamicData" ClipToBounds="False">
+                            <Grid Name="gridDynamicDataDisplay" >
+                                <Grid.Background>
+                                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                        <GradientStop Color="#FF232323" Offset="0"/>
+                                        <GradientStop Color="#FF2C2C2C" Offset="0.3"/>
+                                        <GradientStop Color="#FF2C2C2C" Offset="0.7"/>
+                                        <GradientStop Color="#FF232323" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="39"/>
+                                    <ColumnDefinition Width="39"/>
+                                    <ColumnDefinition Width="39"/>
+                                    <ColumnDefinition Width="39"/>
+                                    <ColumnDefinition Width="39"/>
+                                    <ColumnDefinition Width="39"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="45"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0" Grid.Column="0">
+                                    <TextBlock x:Name="textBlockDynamicID" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="" VerticalAlignment="Center" FontSize="18" Foreground="White"/>
+                                </Grid>
+                                <Grid Grid.Row="0" Grid.Column="1">
+                                    <TextBlock x:Name="textBlockDynamicArrivalTime" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" FontSize="18" Foreground="White" TextAlignment="Center"/>
+                                </Grid>
+                                <Grid Grid.Row="0" Grid.Column="2">
+                                    <TextBlock x:Name="textBlockDynamicProcessingTime" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="" VerticalAlignment="Center" FontSize="18" Foreground="White" TextAlignment="Center"/>
+                                </Grid>
+                                <Grid Grid.Row="0" Grid.Column="3">
+                                    <TextBlock x:Name="textBlockDynamicPriority" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="" VerticalAlignment="Center" FontSize="18" Foreground="White"/>
+                                </Grid>
+                            </Grid>
+                        </Canvas>
+                    </local:ZoomBorderOnlyPan>
+                    <DockPanel Height="50" LastChildFill="False" VerticalAlignment="Top" Opacity="1" Grid.Column="2">
+                        <DockPanel.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#002C2C2C" Offset="1"/>
+                                <GradientStop Color="#FF2C2C2C"/>
+                                <GradientStop Color="#FF2C2C2C" Offset="0.836"/>
+                            </LinearGradientBrush>
+                        </DockPanel.Background>
+                        <StackPanel Height="50" VerticalAlignment="Top" Orientation="Horizontal">
+                            <Image x:Name="imageDynamicTableID" Height="30" Width="30" Margin="5, 0, 0, 0" VerticalAlignment="Center"  Source="img/id_icon_gradient.png"/>
+                            <Image x:Name="imageDynamicTableArrivalTime" Height="30" Width="30" Margin="10, 0, 0, 0" VerticalAlignment="Center" Source="img/time_1_gradient.png"/>
+                            <Image x:Name="imageDynamicTableProcessingTime" Height="30" Width="30" Margin="10, 0, 0, 0" VerticalAlignment="Center" Source="img/processingTimeGradient.png"/>
+                            <Image x:Name="imageDynamicTablePriority" Height="30" Width="30" Margin="10, 0, 0, 0" VerticalAlignment="Center" Source="img/Priority_2_gradient.png"/>
+                            <Image x:Name="imageDynamicTableFinishedExecuting" Height="30" Width="30" Margin="8, 0, 0, 0" VerticalAlignment="Center" Source="img/finishDownloadedGradient.png"/>
+                            <Image x:Name="imageDynamicTableCPUNumber" Height="30" Width="30" Margin="5, 0, 0, 0" VerticalAlignment="Center" Source="img/CPU_1_downloaded_gradient.png"/>
+
+                        </StackPanel>
+
+                    </DockPanel>
+                </Grid>
+
+                <Grid Grid.Row="1" Name="gridDataManagementBottom"/>
+            </Grid>
+
+            <Grid Grid.Row="1" Name="something3" Margin="5, 5, 10, 10" Background="#FF2C2C2C">
+                <ComboBox x:Name="comboBoxAlg" HorizontalAlignment="Left" Margin="163,54,0,0" VerticalAlignment="Top" Width="100" Background="{x:Null}">
+                    <ListBoxItem Content="FCFS"/>
+                    <ListBoxItem Content="SJN"/>
+                    <ListBoxItem Content="Priority"/>
+                    <ListBoxItem Content="Round Robin"/>
+                </ComboBox>
+                <ComboBox x:Name="comboBoxCPU" HorizontalAlignment="Left" Margin="163,17,0,0" VerticalAlignment="Top" Width="100" Background="{x:Null}">
+                    <ListBoxItem Content="1"/>
+                    <ListBoxItem Content="2"/>
+                    <ListBoxItem Content="3"/>
+                    <ListBoxItem Content="4"/>
+                </ComboBox>
+                <TextBlock x:Name="textBlockCPU_Count" HorizontalAlignment="Left" Margin="16,10,0,0" TextWrapping="Wrap" Text="CPU Cores" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="22" Foreground="White"/>
+                <TextBlock x:Name="textBlockAlgorithm" HorizontalAlignment="Left" Margin="16,47,0,0" TextWrapping="Wrap" Text="Algorithm" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="22" Foreground="White"/>
+                <TextBlock x:Name="textBlockTimeQuantum" HorizontalAlignment="Left" Margin="16,84,0,0" TextWrapping="Wrap" Text="Time Quantum" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="22" Foreground="White"/>
+                <TextBox x:Name="textBoxTimeQuantum" HorizontalAlignment="Left" Height="23" Margin="163,90,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="69" Background="{x:Null}" Foreground="White" FontSize="16" TextAlignment="Right" TextChanged="textBoxTimeQuantum_TextChanged"/>
+                <Button x:Name="buttonEditInput" Style="{StaticResource BorderlessButtons}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="118" FontSize="30" FontFamily="Segoe WP Light" BorderBrush="{x:Null}" Foreground="#FF131313" Margin="275,10,10,10" Width="110" Click="buttonEditInput_Click">
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF25374D"/>
+                            <GradientStop Color="#FF2F5583" Offset="0.995"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                    <StackPanel Height="100" Width="100">
+                        <TextBlock x:Name="textBlockEditAndLoad" TextWrapping="Wrap" Text="Edit &amp; Load Data" FontSize="22" TextAlignment="Center" Foreground="White"/>
+                        <Image x:Name="image" Height="45" Width="45" Source="img/editAndLoad.png"  Margin="15,0,0,0" />
+
+                    </StackPanel>
+
+                </Button>
+                <TextBlock x:Name="textBlockInvalidTimeQuantum" Visibility="Hidden" HorizontalAlignment="Left" Margin="182,111,0,-2" TextWrapping="Wrap" Text="Invalid" VerticalAlignment="Top" Height="16" Width="70" Foreground="#FFFF036A"/>
+            </Grid>
+            <TextBlock x:Name="textBlockOriginalDataSe" HorizontalAlignment="Left" Margin="5,10,0,0" TextWrapping="Wrap" Text="Original data set" VerticalAlignment="Top" Foreground="#FF19E4BF" FontFamily="Segoe UI Light" FontSize="22" Width="152"/>
+            <TextBlock x:Name="textBlockDynamicDataSet" HorizontalAlignment="Left" Margin="188,10,0,0" TextWrapping="Wrap" Text="Data set at time = " VerticalAlignment="Top" Foreground="#FF19E4BF" FontFamily="Segoe UI Light" FontSize="22" Width="168"/>
+            <TextBlock x:Name="textBlockDynamicDataSetTimeValue" HorizontalAlignment="Left" Margin="361,11,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Foreground="#FF19E4BF" FontFamily="Segoe UI Light" FontSize="22" Width="39"/>
+
+        </Grid>
+        <Viewbox HorizontalAlignment="Left" Height="100" Margin="640,-189,0,0" VerticalAlignment="Top" Width="100"/>
+
+        <Grid Grid.RowSpan="2" Name="gridInfoPopUp" Visibility="Hidden" Width="300" Height="201" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.Effect>
+                <DropShadowEffect Color="Black" ShadowDepth="0" Direction="0" BlurRadius="30" Opacity="0.6" RenderingBias="Quality">
+
+                </DropShadowEffect>
+            </Grid.Effect>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Name="gridInfoPopUpTitle">
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF00FFD1" Offset="0"/>
+                        <GradientStop Color="#FF01FF80" Offset="1"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <TextBlock x:Name="textBlockTitle" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Information" Margin="10,0,0,0" FontSize="30" FontFamily="Segoe UI Light"/>
+            </Grid>
+
+            <Grid Grid.Row="1" Name="gridInfoPopUpBody" Background="#FF272727">
+                <TextBlock x:Name="textBlockInfoPopUpMessage" HorizontalAlignment="Left" Margin="19,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" Width="271" Foreground="White" FontFamily="Segoe UI Semilight" Height="72" Text="      Please generate and select a Pipeline Control before using this feature"/>
+                <Image x:Name="imageInfoPopUpWarning" HorizontalAlignment="Left" Height="20" Margin="19,21,0,0" VerticalAlignment="Top" Width="20" Source="img/warning.png"/>
+                <StackPanel HorizontalAlignment="Right" Height="60" VerticalAlignment="Bottom" Width="Auto" Orientation="Horizontal">
+
+                    <Button x:Name="buttonInfoPopUpOK" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="80" Height="30" Background="#FF464646" Style="{StaticResource BorderlessButtons}" FontSize="20" FontFamily="Segoe UI Light" Margin="0,0,10,10" Foreground="White" Click="buttonInfoPopUpOK_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="textBlockOKPopup" TextWrapping="Wrap" Text="Got it" Width="50" VerticalAlignment="Center" FontSize="17"/>
+                            <Image x:Name="imageOKPopup" Height="17" Width="17" Panel.ZIndex="10" Margin="3,0,0,0" Source="img/tick.png" Opacity="0.8"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+
+</Window>
