@@ -24,8 +24,8 @@
 
 ## Important
 - I do not guarantee an entirely accurate functioning of all of the aforementioned algorithms **for multiple CPUs and especially for the Round Robin scheduling**. As this was a project for school, being constrained by time I did not manage to properly verify all functionalities
-- The code used for implementing the algoirthms inside the Controller project needs to be refactored/rethought/reimplemented
+- The code used for implementing the algorithms inside the Controller project needs to be refactored/rethought/reimplemented
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExMDEyMDAwODUsMTQ4NDA3MTM5Nl19
+eyJoaXN0b3J5IjpbMjAwMzQ5NzAxNywxNDg0MDcxMzk2XX0=
 -->
