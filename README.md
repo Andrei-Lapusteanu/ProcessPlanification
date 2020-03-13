@@ -18,7 +18,9 @@
 	- Shortest Job Next
 	- Priority Scheduling
 	- Round Robin
-- Simulate using **	1 to 4 virtual CPUs**
+- Simulate using **1 to 4 virtual CPUs**
+- Create, define, randomize, load, and save input data
+- **Increment and decrement time** in order to view the placement of processes inside a CPU
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTI4NjE5NDM4MCwxNDg0MDcxMzk2XX0=
+eyJoaXN0b3J5IjpbMzIyMTA1NjUyLDE0ODQwNzEzOTZdfQ==
 -->
