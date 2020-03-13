@@ -23,7 +23,8 @@
 - **Increment and decrement time** in order to view the placement of processes inside a CPU
 
 ## Important
-I do not guarantee an entirely accurate functioning of all of the afore
+I do not guarantee an entirely accurate functioning of all of the aforementioned algorithms **for multiple CPUs and for Round Robin scheduling**. As this was a project for school, being constrained by time I did not manage to properly verify all functionalities
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjEzMzUzNTUxNSwxNDg0MDcxMzk2XX0=
+eyJoaXN0b3J5IjpbLTc0MzU1NDQ5MCwxNDg0MDcxMzk2XX0=
 -->
