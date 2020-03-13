@@ -21,6 +21,9 @@
 - Simulate using **1 to 4 virtual CPUs**
 - Create, define, randomize, load, and save input data
 - **Increment and decrement time** in order to view the placement of processes inside a CPU
+
+## Important
+I do not guarantee an entirely accurate functioning of all of the afore
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzIyMTA1NjUyLDE0ODQwNzEzOTZdfQ==
+eyJoaXN0b3J5IjpbMjEzMzUzNTUxNSwxNDg0MDcxMzk2XX0=
 -->
