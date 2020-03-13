@@ -18,7 +18,7 @@
 	- Shortest Job Next
 	- Priority Scheduling
 	- Round Robin
-- Simulate using **1 to 4 virtual CPUs**
+- Simulate using **1 to 4 virtual CPU cores**
 - Create, define, randomize, load, and save input data
 - **Increment and decrement time** in order to view the placement of processes inside a CPU
 
@@ -27,5 +27,6 @@
 - The code used for implementing the algorithms inside the Controller project needs to be refactored/rethought/reimplemented
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjAwMzQ5NzAxNywxNDg0MDcxMzk2XX0=
+eyJoaXN0b3J5IjpbLTEzMjYwMjc2NCwyMDAzNDk3MDE3LDE0OD
+QwNzEzOTZdfQ==
 -->
