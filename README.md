@@ -8,12 +8,12 @@
 
 # Technologies
 - Written exclusively in **C#**
-- Its backbone is a slightly modified MVC (Model-View-Controller) design pattern, to which an Entities project is added
+- Its backbone is a slightly modified **MVC (Model-View-Controller)** design pattern, to which an **Entities** project is added
 - UI designed in **WPF/XAML**
 
 # Functionality
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTUwNDEyNTQwMywxNDg0MDcxMzk2XX0=
+eyJoaXN0b3J5IjpbLTIwMjI5NzcwNjEsMTQ4NDA3MTM5Nl19
 -->
