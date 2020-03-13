@@ -23,8 +23,9 @@
 - **Increment and decrement time** in order to view the placement of processes inside a CPU
 
 ## Important
-I do not guarantee an entirely accurate functioning of all of the aforementioned algorithms **for multiple CPUs and for Round Robin scheduling**. As this was a project for school, being constrained by time I did not manage to properly verify all functionalities
+- I do not guarantee an entirely accurate functioning of all of the aforementioned algorithms **for multiple CPUs and especially for the Round Robin scheduling**. As this was a project for school, being constrained by time I did not manage to properly verify all functionalities
+- The code used for implementing the algoirthms inside the Controller project needs to be refactored/rethought/reimplemented
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTc0MzU1NDQ5MCwxNDg0MDcxMzk2XX0=
+eyJoaXN0b3J5IjpbLTExMDEyMDAwODUsMTQ4NDA3MTM5Nl19
 -->
